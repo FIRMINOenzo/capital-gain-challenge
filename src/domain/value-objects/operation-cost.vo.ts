@@ -1,7 +1,7 @@
 import { ValueObjectValidationError } from "../errors/value-object-validation.error";
 import { ValueObject } from "./value-object.interface";
 
-export class UnitCost implements ValueObject<number> {
+export class OperationCost implements ValueObject<number> {
   private readonly value: number;
 
   constructor(value: number) {
