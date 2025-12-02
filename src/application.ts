@@ -1,14 +1,11 @@
-import { CalculateCapitalGainsUseCase } from "./application/use-cases/calculate-capital-gains.use-case";
-import { Transaction } from "./domain/entities/transaction.entity";
+import {
+  CalculateCapitalGainsInput,
+  CalculateCapitalGainsUseCase,
+  RawTransaction,
+} from "./application/use-cases/calculate-capital-gains.use-case";
 import { inject } from "./infra/dependency-injection/registry";
 import { InputReader } from "./infra/IO/input.reader";
 import { OutputWriter } from "./infra/IO/output.writer";
-
-type RawTransaction = {
-  operation: string;
-  "unit-cost": number;
-  quantity: number;
-};
 
 export class Application {
   @inject("InputReader")
@@ -27,11 +24,9 @@ export class Application {
         continue;
       }
 
-      const transactions = rawOperations.map((op: RawTransaction) => {
-        return Transaction.create(op.operation, op["unit-cost"], op.quantity);
-      });
-
-      const results = this.useCase.execute(transactions);
+      const results = this.useCase.execute(
+        new CalculateCapitalGainsInput(rawOperations)
+      );
 
       this.outputWriter.write(results);
     }

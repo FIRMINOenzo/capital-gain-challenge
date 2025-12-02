@@ -6,12 +6,31 @@ export type TaxResult = {
   tax: string;
 };
 
+export type RawTransaction = {
+  operation: string;
+  "unit-cost": number;
+  quantity: number;
+};
+
+export class CalculateCapitalGainsInput {
+  readonly transactions: RawTransaction[];
+
+  constructor(transactions: RawTransaction[]) {
+    this.transactions = transactions;
+  }
+}
+
 export class CalculateCapitalGainsUseCase {
-  public execute(transactions: Transaction[]): TaxResult[] {
+  public execute(input: CalculateCapitalGainsInput): TaxResult[] {
     const portfolio = new Portfolio();
     const results: TaxResult[] = [];
 
-    for (const transaction of transactions) {
+    for (const rawTransaction of input.transactions) {
+      const transaction = Transaction.create(
+        rawTransaction.operation,
+        rawTransaction["unit-cost"],
+        rawTransaction.quantity
+      );
       const operation = transaction.getMarketOperation();
 
       /*

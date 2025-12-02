@@ -1,5 +1,7 @@
-import { CalculateCapitalGainsUseCase } from "./calculate-capital-gains.use-case";
-import { Transaction } from "../../domain/entities/transaction.entity";
+import {
+  CalculateCapitalGainsInput,
+  CalculateCapitalGainsUseCase,
+} from "./calculate-capital-gains.use-case";
 
 describe("CalculateCapitalGainsUseCase", () => {
   let useCase: CalculateCapitalGainsUseCase;
@@ -10,11 +12,13 @@ describe("CalculateCapitalGainsUseCase", () => {
 
   it("should return zero tax for buy operations", () => {
     const transactions = [
-      Transaction.create("buy", 10, 100),
-      Transaction.create("buy", 20, 50),
+      { operation: "buy", "unit-cost": 10, quantity: 100 },
+      { operation: "buy", "unit-cost": 20, quantity: 50 },
     ];
 
-    const result = useCase.execute(transactions);
+    const result = useCase.execute(
+      new CalculateCapitalGainsInput(transactions)
+    );
 
     expect(result).toHaveLength(2);
     expect(result[0]!.tax).toBe("0.0");
@@ -23,12 +27,14 @@ describe("CalculateCapitalGainsUseCase", () => {
 
   it("should calculate tax correctly for a sequence of operations", () => {
     const transactions = [
-      Transaction.create("buy", 10, 10000),
-      Transaction.create("sell", 20, 5000),
-      Transaction.create("sell", 5, 5000),
+      { operation: "buy", "unit-cost": 10, quantity: 10000 },
+      { operation: "sell", "unit-cost": 20, quantity: 5000 },
+      { operation: "sell", "unit-cost": 5, quantity: 5000 },
     ];
 
-    const result = useCase.execute(transactions);
+    const result = useCase.execute(
+      new CalculateCapitalGainsInput(transactions)
+    );
 
     expect(result).toHaveLength(3);
     expect(result[0]!.tax).toBe("0.0");

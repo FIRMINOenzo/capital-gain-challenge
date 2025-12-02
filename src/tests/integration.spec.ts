@@ -1,4 +1,7 @@
-import { CalculateCapitalGainsUseCase } from "../application/use-cases/calculate-capital-gains.use-case";
+import {
+  CalculateCapitalGainsInput,
+  CalculateCapitalGainsUseCase,
+} from "../application/use-cases/calculate-capital-gains.use-case";
 import { Transaction } from "../domain/entities/transaction.entity";
 
 describe("Integration Tests", () => {
@@ -8,13 +11,6 @@ describe("Integration Tests", () => {
     useCase = new CalculateCapitalGainsUseCase();
   });
 
-  const runScenario = (input: any[]) => {
-    const transactions = input.map((op) =>
-      Transaction.create(op.operation, op["unit-cost"], op.quantity)
-    );
-    return useCase.execute(transactions);
-  };
-
   it("Case #1", () => {
     const input = [
       { operation: "buy", "unit-cost": 10.0, quantity: 100 },
@@ -22,7 +18,7 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 15.0, quantity: 50 },
     ];
     const expected = [{ tax: "0.0" }, { tax: "0.0" }, { tax: "0.0" }];
-    const result = runScenario(input);
+    const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
 
@@ -33,7 +29,7 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 5.0, quantity: 5000 },
     ];
     const expected = [{ tax: "0.0" }, { tax: "10000.0" }, { tax: "0.0" }];
-    const result = runScenario(input);
+    const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
 
@@ -44,7 +40,7 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 20.0, quantity: 3000 },
     ];
     const expected = [{ tax: "0.0" }, { tax: "0.0" }, { tax: "1000.0" }];
-    const result = runScenario(input);
+    const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
 
@@ -55,7 +51,7 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 15.0, quantity: 10000 },
     ];
     const expected = [{ tax: "0.0" }, { tax: "0.0" }, { tax: "0.0" }];
-    const result = runScenario(input);
+    const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
 
@@ -72,7 +68,7 @@ describe("Integration Tests", () => {
       { tax: "0.0" },
       { tax: "10000.0" },
     ];
-    const result = runScenario(input);
+    const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
 
@@ -91,7 +87,7 @@ describe("Integration Tests", () => {
       { tax: "0.0" },
       { tax: "3000.0" },
     ];
-    const result = runScenario(input);
+    const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
 
@@ -118,7 +114,7 @@ describe("Integration Tests", () => {
       { tax: "3700.0" },
       { tax: "0.0" },
     ];
-    const result = runScenario(input);
+    const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
 
@@ -135,7 +131,7 @@ describe("Integration Tests", () => {
       { tax: "0.0" },
       { tax: "60000.0" },
     ];
-    const result = runScenario(input);
+    const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
 
@@ -160,7 +156,7 @@ describe("Integration Tests", () => {
       { tax: "1000.0" },
       { tax: "2400.0" },
     ];
-    const result = runScenario(input);
+    const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
 });
