@@ -21,8 +21,8 @@ describe("CalculateCapitalGainsUseCase", () => {
     );
 
     expect(result).toHaveLength(2);
-    expect(result[0]!.tax).toBe("0.0");
-    expect(result[1]!.tax).toBe("0.0");
+    expect(result[0]!.tax).toBe(0);
+    expect(result[1]!.tax).toBe(0);
   });
 
   it("should calculate tax correctly for a sequence of operations", () => {
@@ -37,8 +37,8 @@ describe("CalculateCapitalGainsUseCase", () => {
     );
 
     expect(result).toHaveLength(3);
-    expect(result[0]!.tax).toBe("0.0");
-    expect(result[1]!.tax).toBe("10000.0");
-    expect(result[2]!.tax).toBe("0.0");
+    expect(result[0]!.tax).toBe(0);
+    expect(result[1]!.tax).toBe(10000);
+    expect(result[2]!.tax).toBe(0);
   });
 });

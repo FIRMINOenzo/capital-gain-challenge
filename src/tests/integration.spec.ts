@@ -17,7 +17,7 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 15.0, quantity: 50 },
       { operation: "sell", "unit-cost": 15.0, quantity: 50 },
     ];
-    const expected = [{ tax: "0.0" }, { tax: "0.0" }, { tax: "0.0" }];
+    const expected = [{ tax: 0 }, { tax: 0 }, { tax: 0 }];
     const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
@@ -28,7 +28,7 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 20.0, quantity: 5000 },
       { operation: "sell", "unit-cost": 5.0, quantity: 5000 },
     ];
-    const expected = [{ tax: "0.0" }, { tax: "10000.0" }, { tax: "0.0" }];
+    const expected = [{ tax: 0 }, { tax: 10000 }, { tax: 0 }];
     const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
@@ -39,7 +39,7 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 5.0, quantity: 5000 },
       { operation: "sell", "unit-cost": 20.0, quantity: 3000 },
     ];
-    const expected = [{ tax: "0.0" }, { tax: "0.0" }, { tax: "1000.0" }];
+    const expected = [{ tax: 0 }, { tax: 0 }, { tax: 1000 }];
     const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
@@ -50,7 +50,7 @@ describe("Integration Tests", () => {
       { operation: "buy", "unit-cost": 25.0, quantity: 5000 },
       { operation: "sell", "unit-cost": 15.0, quantity: 10000 },
     ];
-    const expected = [{ tax: "0.0" }, { tax: "0.0" }, { tax: "0.0" }];
+    const expected = [{ tax: 0 }, { tax: 0 }, { tax: 0 }];
     const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
@@ -62,12 +62,7 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 15.0, quantity: 10000 },
       { operation: "sell", "unit-cost": 25.0, quantity: 5000 },
     ];
-    const expected = [
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "10000.0" },
-    ];
+    const expected = [{ tax: 0 }, { tax: 0 }, { tax: 0 }, { tax: 10000 }];
     const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
@@ -81,11 +76,11 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 25.0, quantity: 1000 },
     ];
     const expected = [
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "3000.0" },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 3000 },
     ];
     const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
@@ -104,15 +99,15 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 30.0, quantity: 650 },
     ];
     const expected = [
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "3000.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "3700.0" },
-      { tax: "0.0" },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 3000 },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 3700 },
+      { tax: 0 },
     ];
     const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
@@ -125,12 +120,7 @@ describe("Integration Tests", () => {
       { operation: "buy", "unit-cost": 20.0, quantity: 10000 },
       { operation: "sell", "unit-cost": 50.0, quantity: 10000 },
     ];
-    const expected = [
-      { tax: "0.0" },
-      { tax: "80000.0" },
-      { tax: "0.0" },
-      { tax: "60000.0" },
-    ];
+    const expected = [{ tax: 0 }, { tax: 80000 }, { tax: 0 }, { tax: 60000 }];
     const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
   });
@@ -147,14 +137,14 @@ describe("Integration Tests", () => {
       { operation: "sell", "unit-cost": 15000.0, quantity: 3 },
     ];
     const expected = [
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "0.0" },
-      { tax: "1000.0" },
-      { tax: "2400.0" },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 0 },
+      { tax: 1000 },
+      { tax: 2400 },
     ];
     const result = useCase.execute(new CalculateCapitalGainsInput(input));
     expect(result).toEqual(expected);
