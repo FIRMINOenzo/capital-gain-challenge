@@ -25,7 +25,7 @@ export class StdInputReader implements InputReader {
           const data = JSON.parse(line) as T;
           allData.push(data);
         } catch (err) {
-          throw new Error("Failed to parse line");
+          throw new Error("Failed to parse line. Not in JSON format");
         }
       });
 
